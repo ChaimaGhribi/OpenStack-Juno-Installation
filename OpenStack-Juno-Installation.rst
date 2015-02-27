@@ -41,7 +41,7 @@ We have deployed a single compute node (see the Figure below) but you can simply
 
 
 
-.. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Icehouse-Installation/master/images/network-topo.jpg
+.. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Juno-Installation/master/images/network-topo.jpg
 
 For OpenStack Multi-Node setup you need to create three networks:
 
@@ -50,7 +50,7 @@ It is configured with natting.
 
 + **VM Traffic Network** (10.0.1.0/24): This network is used as internal network for traffic between virtual machines in OpenStack, and between the virtual machines and the network nodes that provide L3 routes out to the public network.
 
-+ **Public Network** (192.168.100.0/24): This network is connected to the controller nodes so users can access the OpenStack interfaces, and connected to the network nodes to provide VMs with publicly routable traffic functionality.
++ **Public Network**: This network is connected to the network nodes to provide VMs with publicly routable traffic functionality.
 
 
 In the next subsections, we describe in details how to set up, configure and test the network architecture. We want to make sure everything is ok before install ;)
