@@ -30,7 +30,7 @@ In this installation guide, we cover the step-by-step process of installing Open
 
 + **Compute Node** that runs the virtual machine instances in OpenStack. 
 
-We have deployed a single compute node (see the Figure below) but you can simply add more compute nodes to our multi-node installation, if needed.  
+We have deployed a single compute node but you can simply add more compute nodes to our multi-node installation, if needed.  
 
 
 
