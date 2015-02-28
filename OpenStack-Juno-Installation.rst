@@ -386,12 +386,15 @@ Install the Identity Service (Keystone)
     connection = mysql://keystone:KEYSTONE_DBPASS@controller/keystone
     
     [DEFAULT]
-    admin_token=ADMIN
+    admin_token = ADMIN
     verbose = True
 
     [token]
     provider = keystone.token.providers.uuid.Provider
     driver = keystone.token.persistence.backends.sql.Token
+    
+    [revoke]
+    driver = keystone.contrib.revoke.backends.sql.Revoke
 
 
 * Populate the Identity service database::
@@ -427,8 +430,7 @@ Install the Identity Service (Keystone)
 
     
     #Create a normal user
-    keystone user-create --name demo --pass=demo_pass --email=demo@domain.com
-    keystone tenant-create --name=demo --description "Demo Tenant"
+    keystone tenant-create --name demo --description "Demo Tenant"
     keystone user-create --name demo --tenant demo --pass demo_pass --email demo@domain.com
 
     
@@ -451,26 +453,26 @@ Install the Identity Service (Keystone)
 * Test Keystone::
     
     #clear the values in the OS_SERVICE_TOKEN and OS_SERVICE_ENDPOINT environment variables:        
-     unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
+    unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
 
     #As the admin tenant and user, request an authentication token:
-     keystone --os-tenant-name admin --os-username admin --ospassword ADMIN_PASS \--os-auth-url http://controller:35357/v2.0 token-get
+    keystone --os-tenant-name admin --os-username admin --ospassword admin_pass --os-auth-url http://controller:35357/v2.0 token-get
 
     #As the admin tenant and user, list tenants: 
-     keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 tenant-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 tenant-list
     
     #As the admin tenant and user, list users to verify that the Identity service contains the users that you created:
-     keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 user-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 user-list
      
     #As the admin tenant and user, list roles to verify that the Identity service contains the role that you created:
-     keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 role-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 role-list
      
     #As the demo tenant and user, request an authentication token:
-     keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 token-get 
+    keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 token-get 
 
     #As the demo tenant and user, attempt to list users to verify that you cannot execute admin-only CLI commands:
-     keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 user-list
-     You are not authorized to perform the requested action: admin_required (HTTP 403)
+    keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 user-list
+    You are not authorized to perform the requested action: admin_required (HTTP 403)
 
 * Create a simple credential file::
         
@@ -491,8 +493,7 @@ Install the Identity Service (Keystone)
 * To load client environment scripts::
 
      source admin_creds  
-   
-
+     
 Install the image Service (Glance)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -516,7 +517,7 @@ Install the image Service (Glance)
 
 * Register the service and create the endpoint::
 
-    keystone service-create --name glance --type image   --description "OpenStack Image Service"
+    keystone service-create --name glance --type image --description "OpenStack Image Service"
     keystone endpoint-create \
     --service-id $(keystone service-list | awk '/ image / {print $2}') \
     --publicurl http://controller:9292 \
@@ -552,6 +553,7 @@ Install the image Service (Glance)
   
     [glance_store]
     default_store = file
+    filesystem_store_datadir = /var/lib/glance/images/
 
 
 * Update /etc/glance/glance-registry.conf::
@@ -590,11 +592,10 @@ Install the image Service (Glance)
 
     source admin_creds
     mkdir /tmp/images
-    cd /tmp/images
 
-    wget http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+    wget -P /tmp/images http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 
-    glance image-create --name "cirros-0.3.3-x86_64" --file cirros-0.3.3-x86_64-disk.img --disk-    format qcow2 --container-format bare --is-public True --progress
+    glance image-create --name "cirros-0.3.3-x86_64" --file /tmp/images/cirros-0.3.3-x86_64-disk.img --disk-format qcow2 --container-format bare --is-public True --progress
 
     rm -r /tmp/images
     
