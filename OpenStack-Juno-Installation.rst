@@ -1074,3 +1074,239 @@ The network node runs the Networking plug-in and different agents (see the Figur
     
     source admin_creds
     neutron agent-list
+
+
+Compute Node
+------------
+
+Finally, let's install the services on the compute node!
+
+It uses KVM as hypervisor and runs nova-compute, the Networking plug-in and layer 2 agent.  
+
+.. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Juno-Installation/master/images/compute.jpg
+		:align: center
+
+
+* Install ntp service::
+    
+    apt-get install -y ntp
+
+* Set the compute node to follow up your conroller node::
+
+    vi /etc/ntp.conf file::
+    
+    **[remove]**
+    server 0.ubuntu.pool.ntp.org
+    server 1.ubuntu.pool.ntp.org
+    server 2.ubuntu.pool.ntp.org
+    server 3.ubuntu.pool.ntp.org
+    
+    # Use Ubuntu's ntp server as a fallback.
+    server ntp.ubuntu.com
+
+    **[add]**
+    server controller iburst
+    
+* Restart NTP service::
+
+    service ntp restart
+    
+* Enable the OpenStack repository::
+
+    apt-get install -y ubuntu-cloud-keyring
+    echo "deb http://ubuntu-cloud.archive.canonical.com/ubuntu" \
+    "trusty-updates/juno main" > /etc/apt/sources.list.d/cloudarchive-juno.list
+
+* Upgrade the packages on your system::
+
+    apt-get update -y && apt-get dist-upgrade -y
+
+
+* Install the Compute packages::
+    
+    apt-get install -y nova-compute sysfsutils
+
+* Modify the /etc/nova/nova.conf like this::
+
+    vi /etc/nova/nova.conf
+    [DEFAULT]
+    verbose = True
+    
+    auth_strategy = keystone
+    
+    rpc_backend = rabbit
+    rabbit_host = controller
+    rabbit_password = service_pass
+    
+    my_ip = 10.0.0.31
+    
+    vnc_enabled = True
+    vncserver_listen = 0.0.0.0
+    vncserver_proxyclient_address = 10.0.0.31
+    novncproxy_base_url = http://controller:6080/vnc_auto.html
+    
+    network_api_class = nova.network.neutronv2.api.API
+    security_group_api = neutron
+    linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
+    firewall_driver = nova.virt.firewall.NoopFirewallDriver
+    
+    [keystone_authtoken]
+    auth_uri = http://controller:5000/v2.0
+    identity_uri = http://controller:35357
+    admin_tenant_name = service
+    admin_user = nova
+    admin_password = service_pass
+    
+    [glance]
+    host = controller
+    
+    [neutron]
+    url = http://controller:9696
+    auth_strategy = keystone
+    admin_auth_url = http://controller:35357/v2.0
+    admin_tenant_name = service
+    admin_username = neutron
+    admin_password = service_pass
+
+* Edit /etc/nova/nova-compute.conf with the correct hypervisor type (set to qemu if using virtualbox for example, kvm is default)::
+
+    vi /etc/nova/nova-compute.conf
+    
+    [DEFAULT]
+    compute_driver=libvirt.LibvirtDriver
+    
+    [libvirt]
+    virt_type=qemu
+
+
+* Delete /var/lib/nova/nova.sqlite file::
+    
+    rm -f /var/lib/nova/nova.sqlite
+    
+    
+* Edit /etc/sysctl.conf to contain the following::
+
+    vi /etc/sysctl.conf
+    net.ipv4.conf.all.rp_filter=0
+    net.ipv4.conf.default.rp_filter=0
+
+* Implement the changes::
+
+    sysctl -p
+
+* Install the Networking components::
+    
+    apt-get install -y neutron-plugin-ml2 neutron-plugin-openvswitch-agent
+
+
+* Update /etc/neutron/neutron.conf::
+
+    vi /etc/neutron/neutron.conf
+    
+    [DEFAULT]
+    verbose = True
+    
+    rpc_backend = rabbit
+    rabbit_host = controller
+    rabbit_password = service_pass
+    
+    auth_strategy = keystone
+    
+    core_plugin = ml2
+    service_plugins = router
+    allow_overlapping_ips = True
+    
+    [keystone_authtoken]
+    auth_uri = http://controller:5000/v2.0
+    identity_uri = http://controller:35357
+    admin_tenant_name = service
+    admin_user = neutron
+    admin_password = service_pass
+
+    **[remove]**
+    connection = sqlite:////var/lib/neutron/neutron.sqlite
+
+
+* Configure the Modular Layer 2 (ML2) plug-in::
+    
+    vi /etc/neutron/plugins/ml2/ml2_conf.ini
+    
+    [ml2]
+    type_drivers = flat,gre
+    tenant_network_types = gre
+    mechanism_drivers = openvswitch
+    
+    [ml2_type_gre]
+    tunnel_id_ranges = 1:1000
+    
+    [securitygroup]
+    enable_security_group = True
+    enable_ipset = True
+    firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
+
+    [ovs]
+    local_ip = 10.0.1.31
+    enable_tunneling = True
+    
+    [agent]
+    tunnel_types = gre
+    
+    
+* Restart the OVS service::
+
+    service openvswitch-switch restart
+    
+* Restart nova-compute services::
+
+    service nova-compute restart
+   
+* Restart the Open vSwitch (OVS) agent::
+
+    service neutron-plugin-openvswitch-agent restart
+
+* On the **controller node**, list agents to verify successful launch of the neutron agents:: 
+
+    source admin_creds
+    neutron agent-list
+    nova service-list
+
+
+That's it !! ;) Just try it!
+
+If you want to create your first instance with Neutron, follow the instructions in our VM creation guide available
+here `Create-First-Instance-with-Neutron <https://github.com/ChaimaGhribi/OpenStack-Juno-Installation/blob/master/Create-your-first-instance-with-Neutron.rst>`_.   
+
+
+Your contributions are welcome, as are questions and requests for help :)
+
+Hope this manual will be helpful and simple!
+
+
+License
+=======
+Institut Mines Télécom - Télécom SudParis  
+
+Copyright (C) 2014  Authors
+
+Original Authors - Chaima Ghribi and Marouen Mechtri
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except 
+
+in compliance with the License. You may obtain a copy of the License at::
+
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+
+Contacts
+========
+
+Chaima Ghribi: chaima.ghribi@it-sudparis.eu
+
+Marouen Mechtri : marouen.mechtri@it-sudparis.eu
