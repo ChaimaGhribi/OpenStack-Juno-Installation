@@ -455,27 +455,27 @@ Install the Identity Service (Keystone)
     #clear the values in the OS_SERVICE_TOKEN and OS_SERVICE_ENDPOINT environment variables:        
     unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
 
-    #As the admin tenant and user, request an authentication token:
+    #Request an authentication token:
     keystone --os-tenant-name admin --os-username admin --ospassword admin_pass \
     --os-auth-url http://controller:35357/v2.0 token-get
 
-    #As the admin tenant and user, list tenants: 
+    #List tenants: 
     keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
     --os-auth-url http://controller:35357/v2.0 tenant-list
     
-    #As the admin tenant and user, list users to verify that the Identity service contains the users that you created:
+    #List users:
     keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
     --os-auth-url http://controller:35357/v2.0 user-list
      
-    #As the admin tenant and user, list roles to verify that the Identity service contains the role that you created:
+    #List roles:
     keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
     --os-auth-url http://controller:35357/v2.0 role-list
      
-    #As the demo tenant and user, request an authentication token:
+    #Request an authentication token:
     keystone --os-tenant-name demo --os-username demo --os-password demo_pass \
     --os-auth-url http://controller:35357/v2.0 token-get 
 
-    #As the demo tenant and user, attempt to list users to verify that you cannot execute admin-only CLI commands:
+    #Attempt to list users to verify that demo tenant cannot list users:
     keystone --os-tenant-name demo --os-username demo --os-password demo_pass \
     --os-auth-url http://controller:35357/v2.0 user-list
     You are not authorized to perform the requested action: admin_required (HTTP 403)
