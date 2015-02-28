@@ -860,8 +860,6 @@ Install the dashboard Service (Horizon)
 
 * Check OpenStack Dashboard at http://controller/horizon  login admin/admin_pass
 
-Enjoy it !
-
 
 Network Node
 ------------
