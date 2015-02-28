@@ -456,22 +456,28 @@ Install the Identity Service (Keystone)
     unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
 
     #As the admin tenant and user, request an authentication token:
-    keystone --os-tenant-name admin --os-username admin --ospassword admin_pass --os-auth-url http://controller:35357/v2.0 token-get
+    keystone --os-tenant-name admin --os-username admin --ospassword admin_pass \
+    --os-auth-url http://controller:35357/v2.0 token-get
 
     #As the admin tenant and user, list tenants: 
-    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 tenant-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
+    --os-auth-url http://controller:35357/v2.0 tenant-list
     
     #As the admin tenant and user, list users to verify that the Identity service contains the users that you created:
-    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 user-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
+    --os-auth-url http://controller:35357/v2.0 user-list
      
     #As the admin tenant and user, list roles to verify that the Identity service contains the role that you created:
-    keystone --os-tenant-name admin --os-username admin --os-password admin_pass --os-auth-url http://controller:35357/v2.0 role-list
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
+    --os-auth-url http://controller:35357/v2.0 role-list
      
     #As the demo tenant and user, request an authentication token:
-    keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 token-get 
+    keystone --os-tenant-name demo --os-username demo --os-password demo_pass \
+    --os-auth-url http://controller:35357/v2.0 token-get 
 
     #As the demo tenant and user, attempt to list users to verify that you cannot execute admin-only CLI commands:
-    keystone --os-tenant-name demo --os-username demo --os-password demo_pass --os-auth-url http://controller:35357/v2.0 user-list
+    keystone --os-tenant-name demo --os-username demo --os-password demo_pass \
+    --os-auth-url http://controller:35357/v2.0 user-list
     You are not authorized to perform the requested action: admin_required (HTTP 403)
 
 * Create a simple credential file::
@@ -595,7 +601,8 @@ Install the image Service (Glance)
 
     wget -P /tmp/images http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
 
-    glance image-create --name "cirros-0.3.3-x86_64" --file /tmp/images/cirros-0.3.3-x86_64-disk.img --disk-format qcow2 --container-format bare --is-public True --progress
+    glance image-create --name "cirros-0.3.3-x86_64" --file /tmp/images/cirros-0.3.3-x86_64-disk.img \
+    --disk-format qcow2 --container-format bare --is-public True --progress
 
     rm -r /tmp/images
     
