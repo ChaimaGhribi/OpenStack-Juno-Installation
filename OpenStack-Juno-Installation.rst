@@ -4,7 +4,7 @@ OpenStack Juno Installation - Multi Node
 
 Welcome to OpenStack Juno installation manual !
 
-This document is based on `the OpenStack Official Documentation <http://docs.openstack.org/juno/install-guide/install/apt/content/index.html>`_ for Icehouse. 
+This document is based on `the OpenStack Official Documentation <http://docs.openstack.org/juno/install-guide/install/apt/content/index.html>`_ for Juno. 
 
 :Version: 1.0
 :Authors: Chaima Ghribi and Marouen Mechtri
