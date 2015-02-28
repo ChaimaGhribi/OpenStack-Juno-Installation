@@ -950,6 +950,9 @@ The network node runs the Networking plug-in and different agents (see the Figur
     admin_user = neutron
     admin_password = service_pass
     
+    **[comment out this line]**
+    connection = sqlite:////var/lib/neutron/neutron.sqlite
+
 * Edit the /etc/neutron/plugins/ml2/ml2_conf.ini::
 
     vi /etc/neutron/plugins/ml2/ml2_conf.ini
@@ -996,21 +999,22 @@ The network node runs the Networking plug-in and different agents (see the Figur
     
     [DEFAULT]
     interface_driver = neutron.agent.linux.interface.OVSInterfaceDriver
+    dhcp_driver = neutron.agent.linux.dhcp.Dnsmasq
     use_namespaces = True
-    external_network_bridge = br-ex
-    router_delete_namespaces = True
-
+    dhcp_delete_namespaces = True
+    
     verbose = True 
     
     dnsmasq_config_file = /etc/neutron/dnsmasq-neutron.conf
     
-* Create and edit the /etc/neutron/dnsmasq-neutron.conf file and complete
-the following action::
+* Edit the /etc/neutron/dnsmasq-neutron.conf file::
 
-     #Enable the DHCP MTU option (26) and configure it to 1454 bytes:      
+     vi /etc/neutron/dnsmasq-neutron.conf
+     
      dhcp-option-force=26,1454
 
-     #Kill any existing dnsmasq processes:
+* Kill any existing dnsmasq processes::
+     
      pkill dnsmasq   
     
     
@@ -1031,9 +1035,7 @@ the following action::
     
     verbose = True
 
-* Note: On the controller node::
-
-    edit the /etc/nova/nova.conf file
+* Note: On the controller node, edit the /etc/nova/nova.conf file::
     
     vi /etc/nova/nova.conf
 
@@ -1041,6 +1043,8 @@ the following action::
     service_metadata_proxy = True
     metadata_proxy_shared_secret = METADATA_SECRET
     
+* Note: On the controller node, restart nova-api service::
+
     service nova-api restart
 
 
@@ -1055,9 +1059,14 @@ the following action::
 
 * Add the eth2 to the br-ex::
 
-    #Internet connectivity will be lost after this step but this won't affect OpenStack's work
     ovs-vsctl add-port br-ex eth2
 
+* Restart the Networking services::
+
+    service neutron-plugin-openvswitch-agent restart
+    service neutron-l3-agent restart
+    service neutron-dhcp-agent restart
+    service neutron-metadata-agent restart
 
 * Check Neutron agents::
 
