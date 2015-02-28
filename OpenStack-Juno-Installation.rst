@@ -14,7 +14,6 @@ Copyright (C) `Chaima Ghribi <https://www.linkedin.com/profile/view?id=53659267&
 
 Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_
 
-
 ================================
 
 .. contents::
