@@ -351,6 +351,7 @@ Install the supporting services (NTP, MySQL and RabbitMQ)
    apt-get install -y rabbitmq-server
 
 * Change the password::
+   
    rabbitmqctl change_password guest service_pass
 
 
