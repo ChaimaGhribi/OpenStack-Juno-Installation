@@ -284,7 +284,8 @@ Here we've installed the basic services (keystone, glance, nova,neutron and hori
 such as MySql database, message broker (RabbitMQ), and NTP. 
 
 **TO UPDATE**
-An additional install guide for optional services (Heat, Celiometer...) are provided in this guide ;) 
+Additional installation guides for optional services (Heat, Celiometer...) are also provided Heat installation guide Celiometer
+installation guide
 
 .. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Juno-Installation/master/images/controller.jpg
 	
