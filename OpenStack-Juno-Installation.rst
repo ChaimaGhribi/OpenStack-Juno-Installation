@@ -643,8 +643,7 @@ Install the compute Service (Nova)
   
 * Install nova packages::
 
-    apt-get install nova-api nova-cert nova-conductor nova-consoleauth \
-    nova-novncproxy nova-scheduler python-novaclient
+    apt-get install -y nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient
     
 * Edit the /etc/nova/nova.conf::
     
@@ -691,9 +690,10 @@ Install the compute Service (Nova)
 
     rm -f /var/lib/nova/nova.sqlite
 
-* Check Nova is running. The :-) icons indicate that everything is ok !::
+* Check Nova is running ::
     
-    nova-manage service list
+    source admin_creds
+    nova service-list
 
 * To verify your configuration, list available images::
 
@@ -732,7 +732,7 @@ Install the network Service (Neutron)
 
 * Install the Networking components::
 
-    apt-get install neutron-server neutron-plugin-ml2 python-neutronclient
+    apt-get install -y neutron-server neutron-plugin-ml2 python-neutronclient
     
 * Update /etc/neutron/neutron.conf::
       
@@ -745,7 +745,7 @@ Install the network Service (Neutron)
     [DEFAULT]
     rpc_backend = rabbit
     rabbit_host = controller
-    rabbit_password = RABBIT_PASS
+    rabbit_password = service_pass
     
     auth_strategy = keystone
 
@@ -858,6 +858,6 @@ Install the dashboard Service (Horizon)
     service memcached restart
 
 
-* Check OpenStack Dashboard at http://192.168.100.11/horizon. login admin/admin_pass
+* Check OpenStack Dashboard at http://controller/horizon  login admin/admin_pass
 
 Enjoy it !
