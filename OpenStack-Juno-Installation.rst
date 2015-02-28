@@ -59,7 +59,7 @@ So, let’s prepare the nodes for OpenStack installation!
 Configure Controller node
 -------------------------
 
-The controller node has one Network Interface: eth0 is internal (used for connectivity for OpenStack nodes).
+The controller node has one Network Interface: eth0.
 
 * Change to super user mode::
 
