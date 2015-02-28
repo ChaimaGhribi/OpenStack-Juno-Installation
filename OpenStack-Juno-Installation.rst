@@ -285,7 +285,7 @@ such as MySql database, message broker (RabbitMQ), and NTP.
 
 **TO UPDATE**
 Additional installation guides for optional services (Heat, Celiometer...) are also provided Heat installation guide Celiometer
-installation guide
+installation guide.
 
 .. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Juno-Installation/master/images/controller.jpg
 	
