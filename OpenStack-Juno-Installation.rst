@@ -861,3 +861,207 @@ Install the dashboard Service (Horizon)
 * Check OpenStack Dashboard at http://controller/horizon  login admin/admin_pass
 
 Enjoy it !
+
+
+Network Node
+------------
+
+Now, let's move to second step!
+
+The network node runs the Networking plug-in and different agents (see the Figure below).
+
+
+.. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Juno-Installation/master/images/network.jpg
+     	 :align: center
+
+* Install NTP service::
+   
+   apt-get install -y ntp
+   
+* Edit the /etc/ntp.conf file::
+
+   vi /etc/ntp.conf
+   
+   [replace]
+   server 0.ubuntu.pool.ntp.org
+   server 1.ubuntu.pool.ntp.org
+   server 2.ubuntu.pool.ntp.org
+   server 3.ubuntu.pool.ntp.org
+
+   # Use Ubuntu's ntp server as a fallback.
+   server ntp.ubuntu.com
+
+   [with]
+   server controller iburst
+
+
+* Restart NTP service::
+
+    service ntp restart
+    
+* Enable the OpenStack repository::
+
+    apt-get install -y ubuntu-cloud-keyring
+    echo "deb http://ubuntu-cloud.archive.canonical.com/ubuntu" \
+    "trusty-updates/juno main" > /etc/apt/sources.list.d/cloudarchive-juno.list
+
+ 
+* Upgrade the packages on your system::
+
+    apt-get update -y && apt-get dist-upgrade -y   
+    
+
+* Edit /etc/sysctl.conf to contain the following::
+
+    vi /etc/sysctl.conf
+    net.ipv4.ip_forward=1
+    net.ipv4.conf.all.rp_filter=0
+    net.ipv4.conf.default.rp_filter=0
+
+* Implement the changes::
+
+    sysctl -p
+
+* Install the Networking components::
+
+    apt-get install neutron-plugin-ml2 neutron-plugin-openvswitch-agent neutron-l3-agent neutron-dhcp-agent
+
+* Update /etc/neutron/neutron.conf::
+
+    vi /etc/neutron/neutron.conf
+
+    [DEFAULT]
+    rpc_backend = rabbit
+    rabbit_host = controller
+    rabbit_password = service_pass
+    
+    auth_strategy = keystone
+    
+    core_plugin = ml2
+    service_plugins = router
+    allow_overlapping_ips = True
+    
+    verbose = True
+        
+    [keystone_authtoken]
+    auth_uri = http://controller:5000/v2.0
+    identity_uri = http://controller:35357
+    admin_tenant_name = service
+    admin_user = neutron
+    admin_password = service_pass
+    
+* Edit the /etc/neutron/plugins/ml2/ml2_conf.ini::
+
+    vi /etc/neutron/plugins/ml2/ml2_conf.ini
+    
+    [ml2]
+    type_drivers = flat,gre
+    tenant_network_types = gre
+    mechanism_drivers = openvswitch
+    
+    [ml2_type_flat]
+    flat_networks = external
+    
+    [ml2_type_gre]
+    tunnel_id_ranges = 1:1000
+    
+    [securitygroup]
+    enable_security_group = True
+    enable_ipset = True
+    firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
+    
+    [ovs]
+    local_ip = 10.0.1.21
+    enable_tunneling = True
+    bridge_mappings = external:br-ex
+   
+    [agent]
+    tunnel_types = gre
+
+* Edit the /etc/neutron/l3_agent.ini::
+
+    vi /etc/neutron/l3_agent.ini
+    
+    [DEFAULT]
+    interface_driver = neutron.agent.linux.interface.OVSInterfaceDriver
+    use_namespaces = True
+    external_network_bridge = br-ex
+    router_delete_namespaces = True
+    
+    verbose = True
+
+* Edit the /etc/neutron/dhcp_agent.ini::
+
+    vi /etc/neutron/dhcp_agent.ini
+    
+    [DEFAULT]
+    interface_driver = neutron.agent.linux.interface.OVSInterfaceDriver
+    use_namespaces = True
+    external_network_bridge = br-ex
+    router_delete_namespaces = True
+
+    verbose = True 
+    
+    dnsmasq_config_file = /etc/neutron/dnsmasq-neutron.conf
+    
+* Create and edit the /etc/neutron/dnsmasq-neutron.conf file and complete
+the following action::
+
+     #Enable the DHCP MTU option (26) and configure it to 1454 bytes:      
+     dhcp-option-force=26,1454
+
+     #Kill any existing dnsmasq processes:
+     pkill dnsmasq   
+    
+    
+* Edit the /etc/neutron/metadata_agent.ini::
+
+    vi /etc/neutron/metadata_agent.ini
+    
+    [DEFAULT]
+    auth_url = http://controller:5000/v2.0
+    auth_region = regionOne
+    admin_tenant_name = service
+    admin_user = neutron
+    admin_password = service_pass
+    
+    nova_metadata_ip = controller
+    
+    metadata_proxy_shared_secret = METADATA_SECRET
+    
+    verbose = True
+
+* Note: On the controller node::
+
+    edit the /etc/nova/nova.conf file
+    
+    vi /etc/nova/nova.conf
+
+    [DEFAULT]
+    service_metadata_proxy = True
+    metadata_proxy_shared_secret = METADATA_SECRET
+    
+    service nova-api restart
+
+
+* Restart openVSwitch::
+
+    service openvswitch-switch restart
+
+* Add the external bridge::
+
+    ovs-vsctl add-br br-ex
+
+
+* Add the eth2 to the br-ex::
+
+    #Internet connectivity will be lost after this step but this won't affect OpenStack's work
+    ovs-vsctl add-port br-ex eth2
+
+
+* Check Neutron agents::
+
+    Perform these commands on the **controller** node:
+    
+    source admin_creds
+    neutron agent-list
