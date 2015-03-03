@@ -83,7 +83,7 @@ The controller node has one Network Interface: eth0.
 
     Remove or comment the line beginning with 127.0.1.1.
 
-* Edit network settings to configure the interface eth0::
+* Edit network settings to configure the interfaces eth0 and eth1::
 
     vi /etc/network/interfaces
       
@@ -95,12 +95,19 @@ The controller node has one Network Interface: eth0.
       gateway 10.0.0.1
       dns-nameservers 8.8.8.8
 
+    # The public network interface
+      auto eth1
+      iface eth1 inet static
+      address 192.168.100.11
+      netmask 255.255.255.0
+      gateway 192.168.100.1
+      dns-nameservers 8.8.8.8
 
 * Restart network::
 
     ifdown eth0 && ifup eth0
     
-           
+    ifdown eth1 && ifup eth1
     
 Configure Network node
 ----------------------
@@ -156,9 +163,11 @@ for connectivity between VMs and eth2 for external connectivity.
     
     # The public network interface
       auto eth2
-      iface eth2 inet manual
-        up ip link set dev $IFACE up
-        down ip link set dev $IFACE down
+      iface eth2 inet static
+      address 192.168.100.21
+      netmask 255.255.255.0
+      gateway 192.168.100.1
+      dns-nameservers 8.8.8.8
 
 
 
