@@ -16,6 +16,16 @@ Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_
 
 ================================
 
+**Contributors:**
+
+Chaima Ghribi: chaima.ghribi@it-sudparis.eu
+
+Marouen Mechtri : marouen.mechtri@it-sudparis.eu
+
+Djamal Zeghlache : djamal.zeghlache@it-sudparis.eu
+
+==========================================
+
 .. contents::
    
 
