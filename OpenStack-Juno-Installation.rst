@@ -8,14 +8,6 @@ This document is based on `the OpenStack Official Documentation <http://docs.ope
 
 ===============================
 
-**Authors:**
-
-Copyright (C) `Chaima Ghribi <https://www.linkedin.com/profile/view?id=53659267&trk=nav_responsive_tab_profile>`_
-
-Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_
-
-================================
-
 **Contributors:**
 
 Chaima Ghribi: chaima.ghribi@it-sudparis.eu
@@ -1312,9 +1304,9 @@ in compliance with the License. You may obtain a copy of the License at::
     limitations under the License.
 
 
-Contacts
-========
+Authors
+==========
 
-Chaima Ghribi: chaima.ghribi@it-sudparis.eu
+Copyright (C) Chaima Ghribi: chaima.ghribi@it-sudparis.eu
 
-Marouen Mechtri : marouen.mechtri@it-sudparis.eu
+Copyright (C) Marouen Mechtri : marouen.mechtri@it-sudparis.eu
