@@ -467,7 +467,7 @@ Install the Identity Service (Keystone)
     unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
 
     #Request an authentication token:
-    keystone --os-tenant-name admin --os-username admin --ospassword admin_pass \
+    keystone --os-tenant-name admin --os-username admin --os-password admin_pass \
     --os-auth-url http://controller:35357/v2.0 token-get
 
     #List tenants: 
