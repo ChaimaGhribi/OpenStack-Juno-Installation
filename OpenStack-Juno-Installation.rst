@@ -773,7 +773,8 @@ Install the network Service (Neutron)
     nova_admin_auth_url = http://controller:35357/v2.0
     nova_region_name = regionOne
     nova_admin_username = nova
-    # Replace the SERVICE_TENANT_ID with the output of this command (keystone tenant-list | awk '/ service / { print $2 }')
+    # Replace the SERVICE_TENANT_ID with the output of this command 
+    # (keystone tenant-list | awk '/ service / { print $2 }')
     nova_admin_tenant_id = SERVICE_TENANT_ID
     nova_admin_password = service_pass
     
