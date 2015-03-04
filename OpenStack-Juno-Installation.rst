@@ -1130,9 +1130,9 @@ It uses KVM as hypervisor and runs nova-compute, the Networking plug-in and laye
 
 * Set the compute node to follow up your conroller node::
 
-    vi /etc/ntp.conf file::
+    vi /etc/ntp.conf
     
-    **[remove]**
+    [replace]
     server 0.ubuntu.pool.ntp.org
     server 1.ubuntu.pool.ntp.org
     server 2.ubuntu.pool.ntp.org
@@ -1140,8 +1140,8 @@ It uses KVM as hypervisor and runs nova-compute, the Networking plug-in and laye
     
     # Use Ubuntu's ntp server as a fallback.
     server ntp.ubuntu.com
-
-    **[add]**
+    
+    [with]
     server controller iburst
     
 * Restart NTP service::
