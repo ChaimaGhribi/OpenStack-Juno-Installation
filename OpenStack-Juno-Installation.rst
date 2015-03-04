@@ -54,7 +54,7 @@ So, let’s prepare the nodes for OpenStack installation!
 Configure Controller node
 -------------------------
 
-The controller node has one Network Interface: eth0.
+The controller node has two Network Interfaces: eth0 (used for management network) and eth1 is external.
 
 * Change to super user mode::
 
@@ -90,18 +90,18 @@ The controller node has one Network Interface: eth0.
     # The management network interface
       auto eth0
       iface eth0 inet static
-      address 10.0.0.11
-      netmask 255.255.255.0
-      gateway 10.0.0.1
-      dns-nameservers 8.8.8.8
+          address 10.0.0.11
+          netmask 255.255.255.0
+          network 10.0.0.0
 
     # The public network interface
       auto eth1
       iface eth1 inet static
-      address 192.168.100.11
-      netmask 255.255.255.0
-      gateway 192.168.100.1
-      dns-nameservers 8.8.8.8
+          address 192.168.100.11
+          netmask 255.255.255.0
+          network 192.168.100.0
+          gateway 192.168.100.1
+          dns-nameservers 8.8.8.8 8.8.4.4
 
 * Restart network::
 
