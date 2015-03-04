@@ -123,7 +123,7 @@ the instance will connect.
 
 * Launch your instance::
     
-    DEMO_NET_ID=$(neutron net-list | awk '/ int-net / { print $2 }')
+    DEMO_NET_ID=$(neutron net-list | awk '/ demo-net / { print $2 }')
     nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=DEMO_NET_ID \
     --security-group default --key-name demo-key demo-instance1
   
@@ -134,7 +134,7 @@ the instance will connect.
     nova image-list    : --image cirros-0.3.3-x86_64
     neutron net-list   : --nic net-id=$DEMO_NET_ID
     nova secgroup-list : --security-group default 
-    nova keypair-list  : --key-name key1 
+    nova keypair-list  : --key-name demo-key 
 
 * Check the status of your instance::
 
