@@ -937,7 +937,7 @@ The network node runs the Networking plug-in and different agents (see the Figur
 
 * Install the Networking components::
 
-    apt-get install neutron-plugin-ml2 neutron-plugin-openvswitch-agent \
+    apt-get install -y neutron-plugin-ml2 neutron-plugin-openvswitch-agent \
     neutron-l3-agent neutron-dhcp-agent
 
 * Update /etc/neutron/neutron.conf::
