@@ -90,11 +90,11 @@ the instance will connect.
 * Verify network connectivity::
 
     #Ping the router gateway:
-     ping 192.168.100.101    
+    ping 192.168.100.101    
  
  
- 3. Launch your instance !
-=========================
+3. Launch your instance 
+=======================
 
 * Source the demo tenant credentials::
 
