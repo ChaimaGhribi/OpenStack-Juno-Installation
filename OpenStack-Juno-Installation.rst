@@ -88,20 +88,20 @@ The controller node has two Network Interfaces: eth0 (used for management networ
     vi /etc/network/interfaces
       
     # The management network interface
-      auto eth0
-      iface eth0 inet static
-          address 10.0.0.11
-          netmask 255.255.255.0
-          network 10.0.0.0
+    auto eth0
+    iface eth0 inet static
+        address 10.0.0.11
+        netmask 255.255.255.0
+        network 10.0.0.0
 
     # The public network interface
-      auto eth1
-      iface eth1 inet static
-          address 192.168.100.11
-          netmask 255.255.255.0
-          network 192.168.100.0
-          gateway 192.168.100.1
-          dns-nameservers 8.8.8.8 8.8.4.4
+    auto eth1
+    iface eth1 inet static
+        address 192.168.100.11
+        netmask 255.255.255.0
+        network 192.168.100.0
+        gateway 192.168.100.1
+        dns-nameservers 8.8.8.8 8.8.4.4
 
 * Restart network and if needed **reboot** the system to activate the changes::
 
@@ -147,28 +147,28 @@ for connectivity between VMs and eth2 for external connectivity.
     vi /etc/network/interfaces
 
     # The management network interface
-      auto eth0
-      iface eth0 inet static
-          address 10.0.0.21
-          netmask 255.255.255.0
-          network 10.0.0.0
+    auto eth0
+    iface eth0 inet static
+        address 10.0.0.21
+        netmask 255.255.255.0
+        network 10.0.0.0
 
     
     # VM traffic interface
-      auto eth1
-      iface eth1 inet static
-          address 10.0.1.21
-          netmask 255.255.255.0
-          network 10.0.1.0
+    auto eth1
+    iface eth1 inet static
+        address 10.0.1.21
+        netmask 255.255.255.0
+        network 10.0.1.0
     
     # The public network interface
-      auto eth2
-      iface eth2 inet static
-          address 192.168.100.21
-          netmask 255.255.255.0
-          network 192.168.100.0
-          gateway 192.168.100.1
-          dns-nameservers 8.8.8.8 8.8.4.4
+    auto eth2
+    iface eth2 inet static
+        address 192.168.100.21
+        netmask 255.255.255.0
+        network 192.168.100.0
+        gateway 192.168.100.1
+        dns-nameservers 8.8.8.8 8.8.4.4
 
 
 
@@ -220,18 +220,18 @@ eth1 for connectivity between VMs.
     vi /etc/network/interfaces
   
     # The management network interface    
-      auto eth0
-      iface eth0 inet static
-          address 10.0.0.31
-          netmask 255.255.255.0
-          network 10.0.0.0
+    auto eth0
+    iface eth0 inet static
+        address 10.0.0.31
+        netmask 255.255.255.0
+        network 10.0.0.0
   
     # VM traffic interface     
-      auto eth1
-      iface eth1 inet static
-          address 10.0.1.31
-          netmask 255.255.255.0
-          network 10.0.1.0
+    auto eth1
+    iface eth1 inet static
+        address 10.0.1.31
+        netmask 255.255.255.0
+        network 10.0.1.0
 
 * In order to be able to reach public network for installing openstack packages, we recommend to add a new interface (e.g. eth2) connected to the public network or configure nat Service on the management network.
 
