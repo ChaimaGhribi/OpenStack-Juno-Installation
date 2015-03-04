@@ -1107,10 +1107,8 @@ The network node runs the Networking plug-in and different agents (see the Figur
     service neutron-dhcp-agent restart
     service neutron-metadata-agent restart
 
-* Check Neutron agents::
+* On the **controller node**, perform these commands to check Neutron agents::
 
-    Perform these commands on the **controller** node:
-    
     source admin_creds
     neutron agent-list
 
