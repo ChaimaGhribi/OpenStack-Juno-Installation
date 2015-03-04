@@ -24,8 +24,15 @@ It's simple and it takes three main steps :
 * Upload the image to the Image Service::
 
     source demo_creds
+    mkdir /tmp/images
+
+    wget -P /tmp/images http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+
     glance image-create --name "cirros-0.3.3-x86_64" --file /tmp/images/cirros-0.3.3-x86_64-disk.img \
     --disk-format qcow2 --container-format bare --is-public True --progress
+
+    rm -r /tmp/images
+
 
 * List Images::
 
