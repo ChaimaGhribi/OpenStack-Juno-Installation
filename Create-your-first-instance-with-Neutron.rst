@@ -4,15 +4,6 @@ Create your first instance with Neutron
 
 =============================
 
-**Authors:**
-
-Copyright (C) Chaima Ghribi
-
-Copyright (C) Marouen Mechtri
-
-=============================
-
-
 In this guide we will provide a description of the steps followed to create an instance with Neutron.
 
 It's simple and it takes three main steps :
