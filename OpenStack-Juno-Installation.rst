@@ -1075,6 +1075,31 @@ The network node runs the Networking plug-in and different agents (see the Figur
 
     ovs-vsctl add-port br-ex eth2
 
+* Edit /etc/network/interfaces::
+
+    vi /etc/network/interfaces
+    
+    # The public network interface
+    auto eth2
+    iface eth2 inet manual
+        up ip link set dev $IFACE up
+        down ip link set dev $IFACE down
+  
+    auto br-ex
+    iface br-ex inet static
+        address 192.168.100.21
+        netmask 255.255.255.0
+        network 192.168.100.0
+        gateway 192.168.100.1
+        dns-nameservers 8.8.8.8 8.8.4.4
+
+* Restart network::
+
+    ifdown eth2 && ifup eth2
+
+    ifdown br-ex && ifup br-ex
+    
+    
 * Restart the Networking services::
 
     service neutron-plugin-openvswitch-agent restart
