@@ -13,7 +13,7 @@ It's simple and it takes three main steps :
 ======================
 
 
-* Edit the demo-openrc.sh file and add the following content::
+* Edit the demo_creds file and add the following content::
    
     export OS_TENANT_NAME=demo
     export OS_USERNAME=demo
@@ -23,7 +23,7 @@ It's simple and it takes three main steps :
 
 * Upload the image to the Image Service::
 
-    source demo-openrc.sh
+    source demo_creds
     glance image-create --name "cirros-0.3.3-x86_64" --file /tmp/images/cirros-0.3.3-x86_64-disk.img \
     --disk-format qcow2 --container-format bare --is-public True --progress
 
@@ -41,7 +41,7 @@ the instance will connect.
 
 * Create an external network::
 
-    source demo-openrc.sh
+    source demo_creds
     
     #Create the external network:
     neutron net-create ext-net --router:external True \
@@ -55,7 +55,7 @@ the instance will connect.
 
 * Create an internal (tenant) network::
 
-    source demo-openrc.sh
+    source demo_creds
     
     #Create the internal network:
     neutron net-create demo-net
@@ -67,7 +67,7 @@ the instance will connect.
 
 * Create a router on the internal network and attach it to the external network::
 
-    source demo-openrc.sh
+    source demo_creds
     
     #Create the router:
      neutron router-create demo-router
@@ -91,7 +91,7 @@ the instance will connect.
 
 * Source the demo tenant credentials::
 
-   source demo-openrc.sh
+   source demo_creds
  
 * Generate a key pair::
  
