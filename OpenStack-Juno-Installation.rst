@@ -1049,7 +1049,7 @@ The network node runs the Networking plug-in and different agents (see the Figur
     
     verbose = True
 
-* Note: On the controller node, edit the /etc/nova/nova.conf file::
+* Note: On the **controller node**, edit the /etc/nova/nova.conf file::
     
     vi /etc/nova/nova.conf
 
@@ -1057,7 +1057,7 @@ The network node runs the Networking plug-in and different agents (see the Figur
     service_metadata_proxy = True
     metadata_proxy_shared_secret = METADATA_SECRET
     
-* Note: On the controller node, restart nova-api service::
+* Note: On the **controller node**, restart nova-api service::
 
     service nova-api restart
 
