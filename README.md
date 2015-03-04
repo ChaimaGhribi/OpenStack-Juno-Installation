@@ -17,4 +17,4 @@ The Installation guide is available here [OpenStack-Juno-Installation](https://g
 
 
 If you want to create your first instance with Neutron, follow the instructions in our VM creation guide available
-here [Create-First-Instance-with-Neutron](https://github.com/ChaimaGhribi/OpenStack-Icehouse-Installation/blob/master/Create-your-first-instance-with-Neutron.rst).   
+here [Create-First-Instance-with-Neutron](https://github.com/ChaimaGhribi/OpenStack-Juno-Installation/blob/master/Create-your-first-instance-with-Neutron.rst).   
