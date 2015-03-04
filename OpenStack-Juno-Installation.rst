@@ -40,7 +40,7 @@ We have deployed a single compute node but you can simply add more compute nodes
 
 For OpenStack Multi-Node setup you need to create three networks:
 
-+ **Management Network** (10.0.0.0/24): A network segment used for administration, not accessible to the public Internet. **This network is configured with natting in order to be able to install OpenStack pachages**.
++ **Management Network** (10.0.0.0/24): A network segment used for administration, not accessible to the public Internet. **This network is configured with natting in order to be able to install OpenStack packages**.
 
 + **VM Traffic Network** (10.0.1.0/24): This network is used as internal network for traffic between virtual machines in OpenStack, and between the virtual machines and the network nodes that provide L3 routes out to the public network.
 
