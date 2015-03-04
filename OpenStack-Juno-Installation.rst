@@ -103,7 +103,7 @@ The controller node has two Network Interfaces: eth0 (used for management networ
           gateway 192.168.100.1
           dns-nameservers 8.8.8.8 8.8.4.4
 
-* Restart network and if needed reboot the system to activate the changes::
+* Restart network and if needed **reboot** the system to activate the changes::
 
     ifdown eth0 && ifup eth0
     
@@ -172,7 +172,7 @@ for connectivity between VMs and eth2 for external connectivity.
 
 
 
-* Restart network and if needed reboot the system to activate the changes::
+* Restart network and if needed **reboot** the system to activate the changes::
 
     ifdown eth0 && ifup eth0
     
@@ -236,7 +236,7 @@ eth1 for connectivity between VMs.
 * In order to be able to reach public network for installing openstack packages, we recommend to add a new interface (e.g. eth2) connected to the public network or configure nat Service on the management network.
 
 
-* Restart network and if needed reboot the system to activate the changes::
+* Restart network and if needed **reboot** the system to activate the changes::
   
     ifdown eth0 && ifup eth0
       
