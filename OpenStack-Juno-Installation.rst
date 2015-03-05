@@ -1187,6 +1187,9 @@ It uses KVM as hypervisor and runs nova-compute, the Networking plug-in and laye
     linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
     firewall_driver = nova.virt.firewall.NoopFirewallDriver
     
+    vif_plugging_is_fatal=false
+    vif_plugging_timeout=0
+
     [keystone_authtoken]
     auth_uri = http://controller:5000/v2.0
     identity_uri = http://controller:35357
