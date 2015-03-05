@@ -1343,6 +1343,6 @@ in compliance with the License. You may obtain a copy of the License at::
 Authors
 ==========
 
-Copyright (C) Chaima Ghribi: chaima.ghribi@it-sudparis.eu
+Copyright (C) `Chaima Ghribi <https://www.linkedin.com/pub/chaima-ghribi/15/b78/997/>`_ : chaima.ghribi@it-sudparis.eu
 
-Copyright (C) Marouen Mechtri : marouen.mechtri@it-sudparis.eu
+Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_ : marouen.mechtri@it-sudparis.eu
