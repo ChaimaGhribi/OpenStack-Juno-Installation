@@ -48,7 +48,7 @@ the instance will connect.
 
 * Create an external network::
 
-    source demo_creds
+    source admin_creds
     
     #Create the external network:
     neutron net-create ext-net --router:external True \
