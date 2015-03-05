@@ -124,7 +124,7 @@ the instance will connect.
 * Launch your instance::
     
     DEMO_NET_ID=$(neutron net-list | awk '/ demo-net / { print $2 }')
-    nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=DEMO_NET_ID \
+    nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=$DEMO_NET_ID \
     --security-group default --key-name demo-key demo-instance1
   
   
