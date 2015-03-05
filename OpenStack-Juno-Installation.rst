@@ -1322,7 +1322,7 @@ License
 =======
 Institut Mines Télécom - Télécom SudParis  
 
-Copyright (C) 2014  Authors
+Copyright (C) 2015  Authors
 
 Original Authors - Chaima Ghribi and Marouen Mechtri
 
