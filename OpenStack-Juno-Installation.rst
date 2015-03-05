@@ -18,7 +18,7 @@ Djamal Zeghlache : djamal.zeghlache@it-sudparis.eu
 
 ==========================================
 
-.. **contents**::
+.. contents::
    
 
 Basic Architecture and Network Configuration
