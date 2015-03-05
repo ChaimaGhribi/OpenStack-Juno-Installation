@@ -77,14 +77,14 @@ the instance will connect.
     source demo_creds
     
     #Create the router:
-     neutron router-create demo-router
+    neutron router-create demo-router
     
     #Attach the router to the demo tenant subnet:
-     neutron router-interface-add demo-router demo-subnet
+    neutron router-interface-add demo-router demo-subnet
 
     
     #Attach the router to the external network by setting it as the gateway:
-     neutron router-gateway-set demo-router ext-net
+    neutron router-gateway-set demo-router ext-net
 
 
 * Verify network connectivity::
