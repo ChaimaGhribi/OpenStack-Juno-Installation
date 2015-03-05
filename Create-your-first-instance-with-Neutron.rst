@@ -147,7 +147,7 @@ the instance will connect.
 
 * Associate the floating IP address with your instance::
 
-    nova floating-ip-associate instance1 192.168.100.102
+    nova floating-ip-associate demo-instance1 192.168.100.102
 
 * Check the status of your floating IP address::
 
